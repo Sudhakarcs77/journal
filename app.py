@@ -190,8 +190,8 @@ elif page == "Weekly Analysis":
         
         col1.metric("Week's Trades", weekly_stats.get('total_trades', 0))
         col2.metric("Week's Win Rate", f"{weekly_stats.get('win_rate', 0):.1f}%")
-        col3.metric("Week's P&L", f"${weekly_stats.get('total_pnl', 0):,.2f}")
-        col4.metric("Week's Largest Trade", f"${weekly_stats.get('largest_win', 0):,.2f}")
+        col3.metric("Week's P&L", f"₹{weekly_stats.get('total_pnl', 0):,.2f}")
+        col4.metric("Week's Largest Trade", f"₹{weekly_stats.get('largest_win', 0):,.2f}")
         
         # Tag Analysis
         st.subheader("Performance by Tag")
@@ -248,13 +248,13 @@ elif page == "Trade History":
                 col1, col2, col3 = st.columns([2,2,1])
                 
                 with col1:
-                    st.write(f"Entry Price: ${trade['entry_price']:.2f}")
-                    st.write(f"Exit Price: ${trade['exit_price']:.2f}")
+                    st.write(f"Entry Price: ₹{trade['entry_price']:.2f}")
+                    st.write(f"Exit Price: ₹{trade['exit_price']:.2f}")
                     st.write(f"Position Size: {trade['position_size']}")
                     st.write(f"Tags: {', '.join(trade['tags'])}")
                     
                 with col2:
-                    st.write(f"P&L: ${trade['pnl']:.2f}")
+                    st.write(f"P&L: ₹{trade['pnl']:.2f}")
                     st.write(f"Risk/Reward: {trade['risk_reward']:.2f}")
                     st.write(f"Setup Quality: {trade['setup_quality']}/10")
                     st.write(f"Emotional State: {trade['emotions']}")
@@ -321,7 +321,7 @@ elif page == "Performance Metrics":
         # Display summary metrics
         col1, col2, col3, col4 = st.columns(4)
         
-        col1.metric("Total P&L", f"${stats['total_pnl']:,.2f}")
+        col1.metric("Total P&L", f"₹{stats['total_pnl']:,.2f}")
         col2.metric("Win Rate", f"{stats['win_rate']:.1f}%")
         col3.metric("Total Trades", stats['total_trades'])
         col4.metric("Profit Factor", f"{stats['profit_factor']:.2f}")
@@ -329,10 +329,10 @@ elif page == "Performance Metrics":
         # Second row of metrics
         col1, col2, col3, col4 = st.columns(4)
         
-        col1.metric("Average Win", f"${stats['avg_win']:,.2f}")
-        col2.metric("Average Loss", f"${stats['avg_loss']:,.2f}")
-        col3.metric("Largest Win", f"${stats['largest_win']:,.2f}")
-        col4.metric("Largest Loss", f"${stats['largest_loss']:,.2f}")
+        col1.metric("Average Win", f"₹{stats['avg_win']:,.2f}")
+        col2.metric("Average Loss", f"₹{stats['avg_loss']:,.2f}")
+        col3.metric("Largest Win", f"₹{stats['largest_win']:,.2f}")
+        col4.metric("Largest Loss", f"₹{stats['largest_loss']:,.2f}")
         
         # Cumulative P&L Chart
         st.subheader("Cumulative P&L")
