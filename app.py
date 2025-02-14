@@ -13,6 +13,13 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+def handle_edit_trade(index):
+    st.session_state.edit_mode = True
+    st.session_state.edit_index = index
+    # Force navigation to Daily Journal page for editing
+    st.session_state.page = "Daily Journal"
+    st.rerun()
+
 # Initialize session states
 if 'trades' not in st.session_state:
     st.session_state.trades = []
@@ -65,6 +72,9 @@ page = st.sidebar.radio("Go to", ["Daily Journal", "Weekly Analysis", "Trade His
 
 if page == "Daily Journal":
     st.title("📈 Daily Trading Journal")
+    
+    if 'page' in st.session_state and st.session_state.page == "Daily Journal":
+        st.session_state.pop('page')  
     
     # Edit mode handling
     if st.session_state.edit_mode:
@@ -263,14 +273,11 @@ elif page == "Trade History":
                     edit_col, delete_col = st.columns(2)
                     with edit_col:
                         if st.button("✏️ Edit", key=f"edit_{index}"):
-                            st.session_state.edit_mode = True
-                            st.session_state.edit_index = index
-                            st.rerun()  # Changed from experimental_rerun()
+                            handle_edit_trade(index)
                     with delete_col:
                         if st.button("🗑️ Delete", key=f"delete_{index}"):
                             st.session_state.trades.pop(index)
-                            st.rerun()  # Changed from experimental_rerun()
-
+                            st.rerun()
                 
                 col1, col2 = st.columns(2)
                 with col1:
@@ -288,6 +295,9 @@ elif page == "Trade History":
                 if trade['chart_url']:
                     st.write("Chart Link:")
                     st.write(trade['chart_url'])
+
+# Modify Daily Journal page to handle the navigation from Trade History
+
 
 # ... (previous code remains the same until the Performance Metrics page)
 
